@@ -16,49 +16,68 @@ document.documentElement.addEventListener("click", () => {
   }
 });
 
-const orderScroll = document.getElementById("order-items");
+function scroll(element) {
+  element.scrollLeft = 0;
 
-orderScroll.scrollLeft = 0;
+  let pos = { left: 0, x: 0 };
 
-let pos = { left: 0, x: 0 };
+  element.addEventListener("mousedown", mouseDownHandler);
 
-orderScroll.addEventListener("mousedown", mouseDownHandler);
+  function mouseDownHandler(e) {
+    pos = {
+      left: element.scrollLeft,
+      x: e.clientX,
+    };
 
-function mouseDownHandler(e) {
-  pos = {
-    left: orderScroll.scrollLeft,
-    x: e.clientX,
-  };
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
 
-  document.addEventListener("mousemove", mouseMoveHandler);
-  document.addEventListener("mouseup", mouseUpHandler);
+    function mouseMoveHandler(e) {
+      const dx = e.clientX - pos.x;
+      element.scrollLeft = pos.left - dx;
+    }
 
-  function mouseMoveHandler(e) {
-    const dx = e.clientX - pos.x;
-    orderScroll.scrollLeft = pos.left - dx;
-  }
-
-  function mouseUpHandler() {
-    document.removeEventListener("mousemove", mouseMoveHandler);
-    document.removeEventListener("mouseup", mouseUpHandler);
+    function mouseUpHandler() {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", mouseUpHandler);
+    }
   }
 }
 
-// const slides = document.querySelector(".slides");
-// const nextSlide = document.querySelector(".btn-next");
+const orderScroll = document.getElementById("order-items");
 
-let sliderContainer = document.querySelector(".slide-container");
-let innerSlider = document.querySelector(".slide");
+scroll(orderScroll);
 
-const nextBtn = document.querySelector(".btn-next");
-const prevBtn = document.querySelector(".btn-prev");
+const sliderContainer = document.querySelectorAll(".slide-container");
 
-nextBtn.addEventListener("click", () => {
-  sliderContainer.scrollLeft += 330;
-  console.log(sliderContainer.scrollLeft);
+const nextBtn = document.querySelectorAll(".btn-next");
+const prevBtn = document.querySelectorAll(".btn-prev");
+
+sliderContainer.forEach((slide, indx) => {
+  scroll(slide);
+  nextBtn[indx].addEventListener("click", () => {
+    slide.scrollLeft += 300;
+  });
+
+  console.log(nextBtn[indx])
+
+  prevBtn[indx].addEventListener("click", () => {
+    slide.scrollLeft -= 300;
+  });
 });
 
-prevBtn.addEventListener("click", () => {
-  sliderContainer.scrollLeft -= 330;
-  console.log(sliderContainer.scrollLeft);
-});
+
+const showOnPx = 300;
+const navbar = document.querySelector("nav")
+
+const scrollContainer = () => {
+  return document.documentElement || document.body;
+};
+
+document.addEventListener("scroll", () => {
+  if (scrollContainer().scrollTop > showOnPx) {
+    navbar.classList.add("change")
+  } else {
+    navbar.classList.remove("change")
+  }
+})
