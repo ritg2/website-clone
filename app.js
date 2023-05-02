@@ -116,7 +116,7 @@ function autoSlide(element) {
   }
 }
 
-const showOnPx = 300;
+const showOnPx = 370;
 const navbar = document.querySelector("nav");
 
 const scrollContainer = () => {
