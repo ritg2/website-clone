@@ -577,6 +577,24 @@ footer a {
   .bold {
     font-weight: bold !important;
   }
+
+  .dlvry-container:hover .order-onl {
+    background: #fff212;
+  }
+
+  .dlvry-container:hover .order-onl p {
+    color: #ff0000;
+  }
+
+  .dlvry-container:hover .order-onl .bike {
+    border: white 3px solid;
+    background: #ff0000;
+  }
+
+  .dlvry-container:hover .ftime {
+    background: #ff0000;
+    color: white;
+  }
 }
 
 @media (min-width: 1200px) {
