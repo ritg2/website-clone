@@ -71,7 +71,7 @@ sliderContainer.forEach((slide, indx) => {
   });
 });
 
-let scrollLeft = 0
+let scrollLeft = 0;
 
 // function loop(element) {
 //   // Increment the scroll position
